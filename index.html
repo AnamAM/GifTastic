@@ -8,7 +8,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
 
     <style>
+        #giphy-form {
+    margin-top: 30px;
+    padding-right: 50px;
+}
 
+#submit-button {
+    margin-top: 10px;
+    margin-right: 50px;
+}
+
+.btn {
+    margin: 5px 5px 5px 5px;
+}
+
+#wholethang {
+    background-color: lightblue;
+}
     </style>
 
 </head>
@@ -16,14 +32,14 @@
 
 </head>
 
-<body>
+<body id="wholethang">
     <div id="container">
         <div id="giphy-view">
         </div>
     </div>
 
     <form id="giphy-form" class="text-right">
-        <label for="giphy-input" id="label">Add a model's name!</label>
+        <label for="giphy-input" id="label">Add an actresses name!</label>
         <br>
         <input type="text" id="giphy-input" />
         <br>
@@ -36,7 +52,7 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            var actressNames = ["Priyanka Chopra", "Mila Kunis", "Blake Lively", "Rachel McAdam", "Jennifer Aniston", "Emily Blunt", "Scarlett Jonhansson", "Marilyn Monroe", "Megan Fox", "Gal Gadot"];
+            var actressNames = ["Priyanka Chopra", "Mila Kunis", "Blake Lively", "Rachel McAdam", "Jennifer Aniston", "Emily Blunt", "Scarlett Jonhansson", "Jennifer Lawrence", "Megan Fox", "Gal Gadot"];
 
 
             function renderButtons() {
@@ -67,13 +83,39 @@
                         console.log(response);
 
                         var results = response.data;
-                    
-                        
+                        for (var i = 0; i < results.length; i++) {
+
+                            var actressDiv = $("<div>");
+                            var p = $("<p>").text("Rating: " + results[i].rating);
+                            var actressImage = $("<img>");
+                            actressImage.attr("src", results[i].images.fixed_height_still.url);
+                            actressImage.attr("data-still", results[i].images.fixed_height_still.url);
+                            actressImage.attr("data-animate", results[i].images.fixed_height.url);
+                            actressImage.attr("data-state", "still");
+                            actressImage.addClass("gif");
+
+                            actressDiv.append(p);
+                            actressDiv.append(actressImage);
+                            $(".actress-images").prepend(actressDiv);
+                        }
+
+                        $(".gif").on("click", function () {
+                            var state = $(this).attr("data-state");
+
+                            if (state === "still") {
+                                $(this).attr("src", $(this).attr("data-animate"));
+                                $(this).attr("data-state", "animate");
+                            }
+                            else {
+                                $(this).attr("src", $(this).attr("data-still"));
+                                $(this).attr("data-state", "still");
+                            }
+                        })
+
 
                     })
                 })
             }
-
             $("#submit-button").on("click", function (event) {
 
                 event.preventDefault();

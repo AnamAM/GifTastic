@@ -1,1 +1,3 @@
 # GifTastic
+
+The project loads up with several popular actresses on buttons for the user to click on to see gifs. Upon clicking on a prefered button, it will return 10 of the most popular gifs for that actress. Intially, the gifs load up as still. However, in order for the user to see the gifs animated, the user must click on the preferred image. The user is also able to search up his or her most favorite actresses as it will show up as a button when submitted; the user can click the button to enjoy more gifs! 

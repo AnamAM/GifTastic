@@ -5,14 +5,16 @@
 
 #submit-button {
     margin-top: 10px;
-    margin-right: 100px;
+    margin-right: 50px;
+  
 
 }
 
-#label {
-    margin-right: 20px;
-}
 
 .btn {
     margin: 5px 5px 5px 5px;
+}
+
+#wholethang {
+    background-color: lightblue;
 }
