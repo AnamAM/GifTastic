@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Actresses</title>
+    <link href="/Users/Anam/Desktop/AnamAM.github.io/GifTastic/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+
+    <style>
+
+    </style>
+
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div id="container">
+        <div id="giphy-view">
+        </div>
+    </div>
+
+    <form id="giphy-form" class="text-right">
+        <label for="giphy-input" id="label">Add a model's name!</label>
+        <br>
+        <input type="text" id="giphy-input" />
+        <br>
+        <button type="button" id="submit-button" class="btn btn-info">Submit</button>
+
+    </form>
+
+    <div class="actress-images"></div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var actressNames = ["Priyanka Chopra", "Mila Kunis", "Blake Lively", "Rachel McAdam", "Jennifer Aniston", "Emily Blunt", "Scarlett Jonhansson", "Marilyn Monroe", "Megan Fox", "Gal Gadot"];
+
+
+            function renderButtons() {
+
+                $("#giphy-view").empty()
+
+                for (var i = 0; i < actressNames.length; i++) {
+                    console.log(actressNames[i]);
+
+                    var names = $("<button>");
+                    names.addClass("btn btn-info specific");
+                    names.attr("data-name", actressNames[i]);
+                    names.text(actressNames[i]);
+                    $("#giphy-view").append(names);
+
+                }
+
+                $(".specific").on("click", function () {
+                    var actress = $(this).attr("data-name");
+
+                    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+                        actress + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+                    $.ajax({
+                        url: queryURL,
+                        method: "GET"
+                    }).then(function (response) {
+                        console.log(response);
+
+                        var results = response.data;
+                    
+                        
+
+                    })
+                })
+            }
+
+            $("#submit-button").on("click", function (event) {
+
+                event.preventDefault();
+                var clickButton = $("#giphy-input")
+                    .val()
+                    .trim();
+                actressNames.push(clickButton);
+
+                renderButtons();
+            });
+
+            renderButtons();
+
+        });
+    </script>
+</body>
+
+</html>
